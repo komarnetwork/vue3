@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Count</title>
+</head>
+
+<body>
+  <div id="app">
+    <!-- mustage -->
+    <div>{{ count }}</div>
+
+    <!-- directive v-text pada element html -->
+    <div v-text="message"></div>
+
+    <!-- directive v-text bisa mereplace text dalam element html -->
+    <div v-text="replcae">ini adalah random text</div>
+
+    <!-- V-html akan melakukan style pada element html, v-text dan v-html sama-sama bisa me-replace -->
+    <div v-html="html"></div>
+  </div>
+
+
+  <script type="module">
+    import { createApp } from "https://unpkg.com/vue@3/dist/vue.esm-browser.js";
+
+    createApp({
+      data() {
+        return {
+          count: 0,
+          message: 'Hello world',
+          replcae: 'Text ini akan me-replace text pada element html',
+          html: '<strong>V-HTML</strong'
+        }
+      },
+
+    }).mount('#app')
+  </script>
+</body>
+
+</html>
