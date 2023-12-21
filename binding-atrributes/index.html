@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Looping</title>
+
+  <style>
+    #textbiru {
+      color: skyblue;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app">
+    <!-- <a v-bind:href="url">google</a> -->
+    <a :href="url">google</a>
+    <br><br>
+    <div :id="selectedId">
+      name : {{ user.name }}
+    </div>
+    <div>
+      <img :src="user.image" :style="{width: responsiveWidth}" :alt="'image of ' + user.name"
+        :title="'image of ' + user.name">
+    </div>
+    <br>
+
+  </div>
+
+  <script type="module">
+    import { createApp } from "https://unpkg.com/vue@3/dist/vue.esm-browser.js";
+
+    createApp({
+      data() {
+        return {
+          url: 'https://google.com',
+          user: {
+            name: 'abdul',
+            image: 'https://media.istockphoto.com/id/1252210017/id/foto/gadis-tersenyum-bermain-di-ayunan.jpg?s=612x612&w=0&k=20&c=CQdveuD_ObeXoFyKGajapojkC0xAunyi48x13bfHkjk='
+          },
+          responsiveWidth: '300px',
+          selectedId: 'textbiru',
+        }
+      }
+
+    }).mount('#app')
+  </script>
+</body>
+
+</html>
