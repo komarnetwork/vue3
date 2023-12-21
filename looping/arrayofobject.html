@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Looping Array of Object</title>
+</head>
+
+<body>
+  <div id="app">
+    <ul v-for="(item, index) in fruits">
+      <li>{{ index }} {{ item }} <button @click="hapus(index)">x</button></li>
+    </ul>
+
+    <!-- Looping Array of Object -->
+    <ul v-for="(item, index) in footballPlayers">
+      <li>{{ item.name }} - {{ item.position }} - {{ index }}</li>
+    </ul>
+  </div>
+
+  <script type="module">
+    import { createApp } from "https://unpkg.com/vue@3/dist/vue.esm-browser.js";
+
+    createApp({
+      data() {
+        return {
+          fruits: ['apel', 'jeruk', 'orange', 'lemon'],
+          footballPlayers: [
+            { name: 'messi', position: 'forward' },
+            { name: 'c.ronaldo', position: 'forward' },
+            { name: 'i.casillas', position: 'goal keeper' },
+            { name: 's.ramos', position: 'defender' },
+            { name: 'l.modric', position: 'mid fielder' },
+          ]
+        }
+      },
+      methods: {
+        hapus(index) {
+          this.fruits.splice(index, 1)
+        }
+      },
+
+    }).mount('#app')
+  </script>
+</body>
+
+</html>
