@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>V-Model</title>
+</head>
+
+<body>
+  <div id="app">
+    <div>
+      <label for="">Username : </label> <br>
+      <input type="text" placeholder="username" v-model="username">
+    </div>
+    <div>
+      <label for="">Address : </label> <br>
+      <textarea cols="30" rows="10" v-model="address"></textarea>
+    </div>
+    <div>
+      <label for="">Gender : </label> <br>
+      <input type="radio" value="Pria" v-model="gender">Pria
+      <input type="radio" value="Wanita" v-model="gender">Wanita
+    </div>
+    <div>
+      <label for="">Hoby</label><br>
+      <label for="">sepak bola</label>
+      <input type="checkbox" value="sepak bola" v-model="hobies"> <br>
+      <label for="">voli</label>
+      <input type="checkbox" value="voli" v-model="hobies">
+    </div>
+    <div>
+      <label for="">Role : </label> <br>
+      <select name="role" v-model="role">
+        <option disabled value="">Pilih Satu</option>
+        <option value="staff">Staff</option>
+        <option value="finance">Finance</option>
+        <option value="auditor">Auditor</option>
+      </select>
+    </div>
+
+    <div>
+      <p>username : {{ username }}</p>
+      <p>address : {{ address }}</p>
+      <p>gender : {{ gender }}</p>
+      <p>hobies :
+        <span v-if="hobies.length > 0">
+          <ul v-for="item in hobies">
+            <li>{{ item }}</li>
+          </ul>
+        </span>
+      </p>
+      <p>role : {{ role }}</p>
+    </div>
+  </div>
+
+
+  <script type="module">
+    import { createApp } from "https://unpkg.com/vue@3/dist/vue.esm-browser.js";
+
+    createApp({
+      data() {
+        return {
+          username: '',
+          address: '',
+          gender: '',
+          hobies: [],
+          role: '',
+        }
+      }
+
+    }).mount('#app')
+  </script>
+</body>
+
+</html>
