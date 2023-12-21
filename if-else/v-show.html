@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Count</title>
+</head>
+
+<body>
+  <div id="app">
+    <!-- v-show hanya menyembunyikan dengan css style display none pada element html -->
+    <div v-show="stateLampu">Lampu Hidup</div>
+    <button @click="toggleLampu">Pencet Saklar</button>
+
+  </div>
+
+  <script type="module">
+    import { createApp } from "https://unpkg.com/vue@3/dist/vue.esm-browser.js";
+
+    createApp({
+      data() {
+        return {
+          stateLampu: false,
+        }
+      },
+      methods: {
+        toggleLampu() {
+          this.stateLampu = !this.stateLampu
+        }
+      }
+
+    }).mount('#app')
+  </script>
+</body>
+
+</html>
