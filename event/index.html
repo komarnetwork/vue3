@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Looping Array of Object</title>
+</head>
+
+<body>
+  <div id="app">
+    <!-- <button @click="count--">-</button>
+    <span>{{ count }}</span>
+    <button @click="count++">+</button> -->
+    <button @click="mengurangi">-</button>
+    <span>{{ count }}</span>
+    <button @click="menambah">+</button>
+    <br><br>
+    <!-- menambahkan param -->
+    <button @click="sayHello('lorem ipsum')">say hello</button>
+
+    <br><br>
+
+    <!-- <input type="text" v-on:keydown.enter="sayHello('lorem ipsum')"> -->
+    <input type="text" @keydown.enter="sayHello('lorem ipsum')">
+    <br>
+    <form action="whatever.html" method="post" @submit.prevent>
+      <input type="text">
+      <input type="submit" value="send">
+  </div>
+
+  </form>
+  <script type="module">
+    import { createApp } from "https://unpkg.com/vue@3/dist/vue.esm-browser.js";
+
+    createApp({
+      data() {
+        return {
+          count: 0
+        }
+      },
+      methods: {
+        mengurangi() {
+          this.count--
+        },
+        menambah() {
+          this.count++
+        },
+        sayHello(whatever) {
+          alert(whatever)
+        }
+      },
+
+    }).mount('#app')
+  </script>
+</body>
+
+</html>
