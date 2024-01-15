@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Poke API - Consume API</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+  <style>
+    .card {
+      background: rgba(255, 255, 255, 0.21);
+      border-radius: 10px;
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+      backdrop-filter: blur(9px);
+      border-left: 2px solid rgba(255, 255, 255, 0.58);
+      border-top: 2px solid rgba(255, 255, 255, 0.58);
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app">
+    <div class="container-fluid bg-dark bg-gradient">
+      <div class="container bg-dark" style="min-height: 100vh;">
+        <div class="row justify-content-center">
+          <div class="col-5">
+            <img src="pokemon-logo.png" class="img-fluid">
+          </div>
+        </div>
+
+        <div class="row justify-content-center mt-5">
+          <div class="col-6">
+            <input type="text" class="form-control" placeholder="search pokemon">
+          </div>
+        </div>
+
+        <div class="main mt-5 text-white">
+          <div class="view-all" v-if="!viewAsDetail">
+            <div class="row px-5">
+              <div class="col-12 col-md-4 col-lg-3 mb-3" v-for="item in pokemonList"
+                @click="viewDetailPokemon(item.name)">
+                <div class="card text-center text-white">
+                  <img :src="item.sprites.front_default" alt="">
+                  <label for="">{{ item.name }}</label>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="view-detail" v-else>
+            <div class="mb-5">
+              <button @click="viewAsDetail=false">View All Pokemon</button>
+            </div>
+            <div class="row justify-content-center">
+              <div class="col-12 col-md-6">
+                <div class="card text-white">
+                  <div class="text-center">
+                    <img :src="selectedPokemon.sprites ? selectedPokemon.sprites.front_default : ''" class="w-25"
+                      alt="">
+                    <h3 class="text-success">{{ selectedPokemon.name }} </h3>
+                    <p><label for="">Type : </label>
+                      <span v-for="i in selectedPokemon.types"> {{ i.type.name }} | </span>
+                    </p>
+                    <p><label for="">Skill : </label>
+                      <span v-for="i in selectedPokemon.moves"> {{ i.move.name }} | </span>
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+      </div>
+    </div>
+  </div>
+
+  <script type="module">
+    import { createApp } from "https://unpkg.com/vue@3/dist/vue.esm-browser.js";
+
+    createApp({
+      data() {
+        return {
+          // tampung kedalam array kosong
+          pokemonList: [],
+          viewAsDetail: false,
+          selectedPokemon: ''
+        }
+      },
+      methods: {
+        // fetch data API
+        async getListPokemon() {
+          let response = await fetch('https://pokeapi.co/api/v2/pokemon')
+          let data = await response.json()
+          let results = data.results
+
+          // foreach datanya
+          results.forEach(item => {
+            this.getEachPokemon(item)
+          });
+        },
+        async getEachPokemon(result) {
+          let response = await fetch('https://pokeapi.co/api/v2/pokemon/' + result.name)
+          let data = await response.json()
+          // console.log(data);
+
+          this.pokemonList.push(data)
+          // sort agar data ber-urutan 
+          this.pokemonList.sort((a, b) => a.id - b.id)
+        },
+        // detail data
+        async viewDetailPokemon(pokemonName) {
+          this.viewAsDetail = true
+          let response = await fetch('https://pokeapi.co/api/v2/pokemon/' + pokemonName)
+          let data = await response.json()
+          console.log(data);
+          this.selectedPokemon = data
+        }
+      },
+      mounted() {
+        this.getListPokemon()
+
+      },
+
+    }).mount('#app')
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+    crossorigin="anonymous"></script>
+</body>
+
+</html>
