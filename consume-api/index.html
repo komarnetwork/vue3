@@ -16,6 +16,10 @@
       border-left: 2px solid rgba(255, 255, 255, 0.58);
       border-top: 2px solid rgba(255, 255, 255, 0.58);
     }
+
+    .suggested-pokemon {
+      cursor: pointer;
+    }
   </style>
 </head>
 
@@ -29,9 +33,14 @@
           </div>
         </div>
 
-        <div class="row justify-content-center mt-5">
+        <div class="row justify-content-center mt-5 text-white">
           <div class="col-6">
-            <input type="text" class="form-control" placeholder="search pokemon">
+            <input type="text" class="form-control" placeholder="search pokemon" v-model="search">
+            <div class="mt-2">
+              <label for="">Sugesstion : <span class="suggested-pokemon" v-for="i in suggestedPokemon"
+                  @click="viewDetailPokemon(i.name)">{{ i.name }} |
+                </span> </label>
+            </div>
           </div>
         </div>
 
@@ -51,7 +60,7 @@
             <div class="mb-5">
               <button @click="viewAsDetail=false">View All Pokemon</button>
             </div>
-            <div class="row justify-content-center">
+            <div class="row justify-conntent-center">
               <div class="col-12 col-md-6">
                 <div class="card text-white">
                   <div class="text-center">
@@ -85,7 +94,10 @@
           // tampung kedalam array kosong
           pokemonList: [],
           viewAsDetail: false,
-          selectedPokemon: ''
+          selectedPokemon: '',
+          search: '',
+          gen1Pokemon: [],
+          suggestedPokemon: ''
         }
       },
       methods: {
@@ -116,10 +128,26 @@
           let data = await response.json()
           console.log(data);
           this.selectedPokemon = data
+        },
+        async getGen1Pokemon() {
+          let response = await fetch('https://pokeapi.co/api/v2/pokemon?limit=151')
+          let data = await response.json()
+          let result = data.results
+
+          this.gen1Pokemon = result
+        }
+      },
+      watch: {
+        search() {
+          let filteredPokemon = this.gen1Pokemon.filter(item => {
+            return item.name.includes(this.search)
+          })
+          this.suggestedPokemon = filteredPokemon.slice(0, 3)
         }
       },
       mounted() {
         this.getListPokemon()
+        this.getGen1Pokemon()
 
       },
 
