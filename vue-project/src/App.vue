@@ -1,7 +1,7 @@
 <template>
-  <Student @response="showData" studentName="Andy" />
-  <Student @response="showData" studentName="Budi" />
-  <Student @response="showData" studentName="Ani" />
+  <Student @response="showData" studentName="Andy">ini adalah nilai slot dari parent</Student>
+  <Student @response="showData" studentName="Budi"></Student>
+  <Student @response="showData" studentName="Ani"></Student>
 
   <p>Student yang dipilih adalah : {{ selectedStudent }}</p>
 </template>

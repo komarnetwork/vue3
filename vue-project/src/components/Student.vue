@@ -1,4 +1,5 @@
 <template>
+  <slot>ini adalah slot default karena parent komponent tidak memberikan data</slot>
   <p>ini komponen student {{ studentName }} <button @click="showData">Show Detail</button></p>
 </template>
 
