@@ -6,18 +6,22 @@
   <p>Student yang dipilih adalah : {{ selectedStudent }}</p>
 
   <!-- Vue Router -->
-  <RouterLink to="/">Dashboard</RouterLink>
-  <RouterLink to="/about">About</RouterLink>
-
-  <RouterView></RouterView>
+  <div class="menu">
+    <Navbar />
+  </div>
+  <div class="main">
+    <RouterView></RouterView>
+  </div>
 </template>
 
 <script>
 import Student from './components/Student.vue'
+import Navbar from './components/Navbar.vue'
 
 export default {
   components: {
-    Student
+    Student,
+    Navbar
   },
   data() {
     return {
@@ -31,3 +35,21 @@ export default {
   }
 }
 </script>
+
+<style>
+body {
+  margin: 0;
+}
+</style>
+
+<style scoped>
+.menu {
+  background-color: #eeecec;
+  line-height: 2;
+  padding: 10px;
+}
+
+.main {
+  padding: 10px;
+}
+</style>
