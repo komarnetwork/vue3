@@ -4,6 +4,12 @@
   <Student @response="showData" studentName="Ani"></Student>
 
   <p>Student yang dipilih adalah : {{ selectedStudent }}</p>
+
+  <!-- Vue Router -->
+  <RouterLink to="/">Dashboard</RouterLink>
+  <RouterLink to="/about">About</RouterLink>
+
+  <RouterView></RouterView>
 </template>
 
 <script>
