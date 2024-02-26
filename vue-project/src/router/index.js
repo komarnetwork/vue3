@@ -6,6 +6,7 @@ import UserDetailView from '../views/UserDetail.vue'
 import UserPostView from '../views/UserPost.vue'
 import UserProfileView from '../views/UserProfile.vue'
 import UserIndexView from '../views/UserIndex.vue'
+import TodoListView from '../views/TodoList.vue'
 
 const routes = [
   {
@@ -52,6 +53,10 @@ const routes = [
         component: UserProfileView
       }
     ]
+  },
+  {
+    path: '/todolist',
+    component: TodoListView
   }
 ]
 
