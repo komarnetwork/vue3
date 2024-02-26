@@ -6,6 +6,10 @@
     <input type="submit" value="Add">
   </form>
 
+  <div class="title">
+    <h3>My Todo List</h3>
+  </div>
+
   <ul v-for="(list, index) in todoStore.todoList">
     <li>
       <span>{{ list.name }}</span>
@@ -18,6 +22,21 @@
 </template>
 
 <style scoped>
+form {
+  width: 500px;
+  padding-inline-start: 40px;
+  margin-bottom: 40px;
+}
+
+form input {
+  padding: 10px;
+}
+
+form input:first-child {
+  width: 80%;
+  margin: 0px 10px;
+}
+
 ul {
   list-style: none;
   width: 500px;
@@ -29,6 +48,15 @@ li {
   padding: 10px;
   display: flex;
   justify-content: space-between;
+}
+
+.title {
+  width: 500px;
+  padding-inline-start: 40px;
+}
+
+.title h3 {
+  text-align: center;
 }
 </style>
 
