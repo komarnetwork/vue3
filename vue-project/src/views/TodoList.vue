@@ -10,15 +10,51 @@
     <h3>My Todo List</h3>
   </div>
 
-  <ul v-for="(list, index) in todoStore.todoList">
-    <li>
-      <span>{{ list.name }}</span>
-      <span>
-        <button v-if="!list.isDone" @click="todoStore.setAsDone(index)">set as done</button>
-        <button v-if="list.isDone" @click="todoStore.setAsUndone(index)">set as undone</button>
-      </span>
-    </li>
-  </ul>
+  <div class="getters-button title">
+    <button class="btn" @click="show = 'all'">Show All</button>
+    <button class="btn done" @click="show = 'done only'">Done Only</button>
+    <button class="btn undone" @click="show = 'undone only'">Undone Only</button>
+  </div>
+
+  <!-- Show All -->
+  <div v-if="show == 'all'">
+    <ul v-for="list in todoStore.showAll">
+      <li>
+        <span class="listName">{{ list.name }}</span>
+        <span>
+          <button class="btn done" v-if="!list.isDone" @click="todoStore.setAsDone(list.name)">set as done</button>
+          <button class="btn undone" v-if="list.isDone" @click="todoStore.setAsUndone(list.name)">set as undone</button>
+        </span>
+      </li>
+    </ul>
+  </div>
+
+  <!-- Done Only -->
+  <div v-if="show == 'done only'">
+    <ul v-for="list in todoStore.doneOnly">
+      <li>
+        <span class="listName">{{ list.name }}</span>
+        <span>
+          <button class="btn done" v-if="!list.isDone" @click="todoStore.setAsDone(list.name)">set as done</button>
+          <button class="btn undone" v-if="list.isDone" @click="todoStore.setAsUndone(list.name)">set as undone</button>
+        </span>
+      </li>
+    </ul>
+  </div>
+
+  <!-- UnDone Only -->
+  <div v-if="show == 'undone only'">
+    <ul v-for="list in todoStore.unDoneOnly">
+      <li>
+        <span class="listName">{{ list.name }}</span>
+        <span>
+          <button class="btn done" v-if="!list.isDone" @click="todoStore.setAsDone(list.name)">set as done</button>
+          <button class="btn undone" v-if="list.isDone" @click="todoStore.setAsUndone(list.name)">set as undone</button>
+        </span>
+      </li>
+    </ul>
+  </div>
+
 </template>
 
 <style scoped>
@@ -58,6 +94,29 @@ li {
 .title h3 {
   text-align: center;
 }
+
+.listName {
+  justify-content: center;
+  margin: 5px;
+}
+
+.getters-button {
+  display: flex;
+  justify-content: center;
+}
+
+.btn {
+  border-radius: 5px;
+  margin: 5px;
+}
+
+.done {
+  background-color: aquamarine;
+}
+
+.undone {
+  background-color: yellowgreen;
+}
 </style>
 
 <script>
@@ -70,7 +129,10 @@ export default {
     return { todoStore }
   },
   data() {
-    return { newTodo: '' }
+    return {
+      newTodo: '',
+      show: 'all'
+    }
   }
 }
 </script>
